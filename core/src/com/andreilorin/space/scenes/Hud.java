@@ -1,7 +1,9 @@
 package com.andreilorin.space.scenes;
 
 import com.andreilorin.space.MyGame;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -24,8 +26,10 @@ public class Hud {
     Label scoreLabel;
     Label timeLabel;
     Label levelLabel;
-    Label worldLabel;
-    Label marioLabel;
+    Label levelNumberLabel;
+    Label spaceLabel;
+
+
 
     public Hud(SpriteBatch sb){
         worldTimer = 300;
@@ -38,5 +42,24 @@ public class Hud {
 
         Table table = new Table();
         table.top();
+        table.setFillParent(true);
+
+        countDownLabel = new Label(String.format("%03d", worldTimer), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        scoreLabel = new Label(String.format("%06d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        levelLabel = new Label("Level", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        levelNumberLabel = new Label("1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        spaceLabel = new Label("SpaceRobots", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+
+        table.add(spaceLabel).expandX().padTop(10);
+        table.add(levelLabel).expandX().padTop(10);
+        table.add(timeLabel).expandX().padTop(10);
+        table.row();
+        table.add(scoreLabel).expandX();
+        table.add(levelNumberLabel).expandX();
+        table.add(countDownLabel).expandX();
+
+        stage.addActor(table);
+
     }
 }

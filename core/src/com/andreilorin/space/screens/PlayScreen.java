@@ -1,6 +1,7 @@
 package com.andreilorin.space.screens;
 
 import com.andreilorin.space.MyGame;
+import com.andreilorin.space.scenes.Hud;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -19,6 +20,7 @@ public class PlayScreen implements Screen {
     Texture texture;
     private OrthographicCamera gameCamera;
     private Viewport gamePort;
+    private Hud hud;
 
 
     public PlayScreen(MyGame game){
@@ -26,6 +28,7 @@ public class PlayScreen implements Screen {
         texture = new Texture("BG.jpg");
         gameCamera = new OrthographicCamera();
         gamePort = new FitViewport(MyGame.V_WIDTH, MyGame.V_HEIGHT, gameCamera);
+        hud = new Hud(game.batch);
     }
 
     @Override
@@ -38,11 +41,8 @@ public class PlayScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        game.batch.setProjectionMatrix(gameCamera.combined);
-
-        game.batch.begin();
-        game.batch.draw(texture, 0, 0);
-        game.batch.end();
+        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+        hud.stage.draw();
 
     }
 
